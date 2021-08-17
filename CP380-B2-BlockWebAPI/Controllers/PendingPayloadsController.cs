@@ -15,22 +15,22 @@ namespace CP380_B2_BlockWebAPI.Controllers
     public class PendingPayloadsController : ControllerBase
     {
         // TODO
-        private readonly PendingPayloads pendingPayload;
+        private readonly PendingPayloads pending_Payload;
         public PendingPayloadsController(PendingPayloads pendingPayloads)
         {
-            pendingPayload = pendingPayloads;
+            pending_Payload = pendingPayloads;
         }
 
         [HttpGet("/PendingPayloads")]
         public ActionResult Get()
         {
-            return Ok(pendingPayload.payloads);
+            return Ok(pending_Payload.payloads);
         }
 
         [HttpPost("/PendingPayloads")]
         public ActionResult Post(Payload payload)
         {
-            pendingPayload.payloads.Add(payload);
+            pending_Payload.payloads.Add(payload);
             return Ok();
         }
     }

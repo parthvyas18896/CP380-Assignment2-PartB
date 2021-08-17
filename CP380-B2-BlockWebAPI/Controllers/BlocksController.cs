@@ -24,11 +24,11 @@ namespace CP380_B2_BlockWebAPI.Controllers
         [HttpGet("/blocks")]
         public ActionResult Get()
         {
-            return Ok(block_list.Chain.Select(block => new BlockSummary()
+            return Ok(block_list.Chain.Select(b => new BlockSummary()
             {
-                Hash = block.Hash,
-                PreviousHash = block.PreviousHash,
-                TimeStamp = block.TimeStamp
+                Hash = b.Hash,
+                PreviousHash = b.PreviousHash,
+                TimeStamp = b.TimeStamp
             }));
         }
 
@@ -41,11 +41,11 @@ namespace CP380_B2_BlockWebAPI.Controllers
             if (block != null && block.Count() > 0)
             {
                 return Ok(block
-                    .Select(block => new BlockSummary()
+                    .Select(b => new BlockSummary()
                     {
-                        Hash = block.Hash,
-                        PreviousHash = block.PreviousHash,
-                        TimeStamp = block.TimeStamp
+                        Hash = b.Hash,
+                        PreviousHash = b.PreviousHash,
+                        TimeStamp = b.TimeStamp
                     }
                     )
                     .First());
@@ -55,15 +55,15 @@ namespace CP380_B2_BlockWebAPI.Controllers
         }
 
         [HttpGet("/blocks/{hash?}/payloads")]
-        public ActionResult GetBlockPayload(string hash)
+        public IActionResult GetBlockPayload(string hash)
         {
             var block = block_list.Chain
-                        .Where(block => block.Hash.Equals(hash));
+                        .Where(b => b.Hash.Equals(hash));
 
             if (block != null && block.Count() > 0)
             {
                 return Ok(block
-                    .Select(block => block.Data
+                    .Select(b=> b.Data
                     )
                     .First());
             }
